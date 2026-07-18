@@ -1,0 +1,6 @@
+{
+  "name": "Socratic AI",
+  "description": "An advanced educational chatbot designed to grill users on a specific topic using Socratic questioning to deeply test and perfect their understanding.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
