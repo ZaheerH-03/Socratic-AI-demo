@@ -15,13 +15,14 @@ const apiKey = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
 const ai = apiKey
   ? new GoogleGenAI({
-      apiKey: apiKey,
-      httpOptions: {
-        headers: {
-          'User-Agent': 'aistudio-build',
-        },
+    apiKey: apiKey,
+    httpOptions: {
+      timeout: 8000,
+      headers: {
+        'User-Agent': 'aistudio-build',
       },
-    })
+    },
+  })
   : null;
 
 // Helper to execute Gemini requests with automatic fallback across Flash models if high demand (503) occurs
@@ -31,6 +32,7 @@ async function generateGeminiContent(aiClient: GoogleGenAI, params: any) {
     "gemini-3.5-flash",
     "gemini-3-flash-preview",
     "gemini-3.1-flash-lite",
+    "gemma-4-26b-a4b-it",
     "gemma-4-31b-it",
     "gemini-2.0-flash",
     "gemini-1.5-flash"

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { 
-  Send, ShieldAlert, GraduationCap, Clock, Award, 
+import {
+  Send, ShieldAlert, GraduationCap, Clock, Award,
   HelpCircle, User, BookOpen, Skull, Flame, Sparkles
 } from "lucide-react";
 import { Message, ExpertiseLevel, ProfessorStatus } from "../types";
@@ -234,7 +234,7 @@ export default function ExamPhase({
                           Examinee Response
                         </span>
                       </div>
-                      
+
                       {msg.isTrapCallout && (
                         <div className="inline-flex items-center space-x-1 px-2 py-0.5 bg-red-50 border border-red-200 text-red-800 text-[9px] font-sans font-bold uppercase tracking-wider">
                           <ShieldAlert className="w-3 h-3 flex-shrink-0" />
@@ -306,11 +306,10 @@ export default function ExamPhase({
                 id="trap-callout-toggle-btn"
                 type="button"
                 onClick={() => setIsTrapCallout(!isTrapCallout)}
-                className={`p-3 rounded-full border transition-all duration-300 cursor-pointer flex-shrink-0 flex items-center justify-center ${
-                  isTrapCallout 
-                    ? "bg-red-100 border-red-400 text-red-800 shadow-xs" 
+                className={`p-3 rounded-full border transition-all duration-300 cursor-pointer flex-shrink-0 flex items-center justify-center ${isTrapCallout
+                    ? "bg-red-100 border-red-400 text-red-800 shadow-xs"
                     : "bg-white border-[#1A1A1A]/20 text-[#1A1A1A]/50 hover:text-[#1A1A1A] hover:border-[#1A1A1A]"
-                }`}
+                  }`}
                 title="Challenge previous message (Callout flawed scientific misconception)"
               >
                 <ShieldAlert className="w-5 h-5" />
@@ -325,8 +324,8 @@ export default function ExamPhase({
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder={
-                    isTrapCallout 
-                      ? "Identify the logical fallacy or scientific misconception precisely..." 
+                    isTrapCallout
+                      ? "Identify the logical fallacy or scientific misconception precisely..."
                       : "The underlying mechanism suggests that..."
                   }
                   disabled={loading}
@@ -345,11 +344,10 @@ export default function ExamPhase({
                 id="submit-turn-btn"
                 type="submit"
                 disabled={loading || !inputText.trim()}
-                className={`w-20 h-20 md:w-24 md:h-24 rounded-full border flex-shrink-0 flex flex-col items-center justify-center text-[10px] font-sans font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer ${
-                  inputText.trim() && !loading
+                className={`w-20 h-20 md:w-24 md:h-24 rounded-full border flex-shrink-0 flex flex-col items-center justify-center text-[10px] font-sans font-bold uppercase tracking-widest transition-all duration-300 cursor-pointer ${inputText.trim() && !loading
                     ? "border-[#1A1A1A] bg-[#1A1A1A] text-white hover:bg-transparent hover:text-[#1A1A1A]"
                     : "border-[#1A1A1A]/10 text-[#1A1A1A]/20 cursor-not-allowed bg-transparent"
-                }`}
+                  }`}
               >
                 <span>Submit</span>
                 <span className="text-[8px] opacity-70 mt-0.5">Thesis</span>
@@ -363,9 +361,8 @@ export default function ExamPhase({
                   Words: <strong className="font-mono text-[#1A1A1A]">{wordCount}</strong>
                 </span>
                 {wordCount > 0 && (
-                  <span className={`font-sans text-[9px] uppercase tracking-wider font-bold ${
-                    wordCount < 10 ? "text-amber-700" : "text-[#1A1A1A]/70"
-                  }`}>
+                  <span className={`font-sans text-[9px] uppercase tracking-wider font-bold ${wordCount < 10 ? "text-amber-700" : "text-[#1A1A1A]/70"
+                    }`}>
                     {wordCount < 10 ? "⚠️ Superficial logic" : "✓ Substantial defense"}
                   </span>
                 )}

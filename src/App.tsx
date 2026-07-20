@@ -61,7 +61,7 @@ export default function App() {
       }
 
       const data = await response.json();
-      
+
       const welcomeMessage: Message = {
         id: `prof-init`,
         role: "assistant",
@@ -137,7 +137,7 @@ export default function App() {
 
       setMessages(prev => [...prev, profResponse]);
       setCurrentStatus(data.professorStatus);
-      
+
       if (data.trapActive) {
         setTrapSprung(true);
       }
@@ -240,8 +240,8 @@ export default function App() {
         <div className="bg-[#FFF0F0] border-b border-[#E5C3C3] text-[#8C1D1D] px-6 py-2.5 text-xs font-sans text-center">
           <div className="max-w-2xl mx-auto flex items-center justify-center space-x-2">
             <span>⚠️ {errorText}</span>
-            <button 
-              onClick={() => setErrorText(null)} 
+            <button
+              onClick={() => setErrorText(null)}
               className="underline font-bold hover:text-red-950 ml-2"
             >
               Dismiss
