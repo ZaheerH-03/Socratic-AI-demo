@@ -17,7 +17,7 @@ const ai = apiKey
   ? new GoogleGenAI({
     apiKey: apiKey,
     httpOptions: {
-      timeout: 8000,
+      timeout: 10000,
       headers: {
         'User-Agent': 'aistudio-build',
       },
