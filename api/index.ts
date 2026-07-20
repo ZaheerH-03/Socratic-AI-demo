@@ -33,9 +33,7 @@ async function generateGeminiContent(aiClient: GoogleGenAI, params: any) {
     "gemini-3-flash-preview",
     "gemini-3.1-flash-lite",
     "gemma-4-26b-a4b-it",
-    "gemma-4-31b-it",
-    "gemini-2.0-flash",
-    "gemini-1.5-flash"
+    "gemma-4-31b-it"
   ]));
   let lastError: any = null;
 
