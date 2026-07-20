@@ -12,6 +12,7 @@ app.use(express.json());
 
 // Initialize Gemini API Client
 const apiKey = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
 const ai = apiKey
   ? new GoogleGenAI({
       apiKey: apiKey,
@@ -22,6 +23,26 @@ const ai = apiKey
       },
     })
   : null;
+
+// Helper to execute Gemini requests with automatic fallback across Flash models if high demand (503) occurs
+async function generateGeminiContent(aiClient: GoogleGenAI, params: any) {
+  const modelsToTry = Array.from(new Set([GEMINI_MODEL, "gemini-1.5-flash", "gemini-2.0-flash"]));
+  let lastError: any = null;
+
+  for (const modelName of modelsToTry) {
+    try {
+      return await aiClient.models.generateContent({
+        ...params,
+        model: modelName,
+      });
+    } catch (err: any) {
+      console.warn(`Gemini model ${modelName} failed or unavailable:`, err?.message || err);
+      lastError = err;
+    }
+  }
+
+  throw lastError;
+}
 
 // Initialize Ollama configuration
 const OLLAMA_HOST = process.env.OLLAMA_HOST || "http://localhost:11434";
@@ -222,8 +243,7 @@ app.post("/api/chat", async (req, res) => {
         parts: [{ text: m.content }],
       }));
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+      const response = await generateGeminiContent(ai, {
         contents: apiMessages,
         config: {
           systemInstruction: getSystemPromptGemini(topic, level, currentTurn, trapSprung),
@@ -328,8 +348,7 @@ You must output a JSON object adhering to the specified schema:
         return res.status(500).json({ error: "GEMINI_API_KEY environment variable is not set." });
       }
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+      const response = await generateGeminiContent(ai, {
         contents: reportPrompt,
         config: {
           temperature: 0.5,
